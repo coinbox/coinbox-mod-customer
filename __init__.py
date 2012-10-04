@@ -7,17 +7,11 @@ class ModuleLoader(BaseModuleLoader):
     name = 'Customer and Customer Groups Support'
 
     def load(self):
-        from cbpos.mod.customer.models import Customer
-        from cbpos.mod.customer.models import CustomerGroup
-        from cbpos.mod.customer.models import CustomerContact
-        from cbpos.mod.customer.models import CustomerAddress
+        from cbpos.mod.customer.models import Customer, CustomerGroup, CustomerContact, CustomerAddress
         return [Customer, CustomerGroup, CustomerContact, CustomerAddress]
 
     def test(self):
-        from cbpos.mod.customer.models.customer import Customer
-        from cbpos.mod.customer.models.group import CustomerGroup
-        from cbpos.mod.customer.models.contact import CustomerContact
-        from cbpos.mod.customer.models.address import CustomerAddress
+        from cbpos.mod.customer.models import Customer, CustomerGroup, CustomerContact, CustomerAddress
     
         session = cbpos.database.session()
     
@@ -25,7 +19,7 @@ class ModuleLoader(BaseModuleLoader):
         cg2 = CustomerGroup(name='Library', comment='Customers who have an account at the library.')
         cg3 = CustomerGroup(name='Offices', comment='Customers who buy products for their offices and/or companies.')
         
-        from cbpos.mod.currency.models.currency import Currency
+        from cbpos.mod.currency.models import Currency
         LL = session.query(Currency).filter_by(id=1).one()
         
         c1 = Customer(name='Abou El Jouj', code=None, first_name='Jad', last_name='Kik',
@@ -46,8 +40,7 @@ class ModuleLoader(BaseModuleLoader):
         session.commit()
 
     def menu(self):
-        from cbpos.mod.customer.pages import CustomersPage
-        from cbpos.mod.customer.pages import CustomerGroupsPage
+        from cbpos.mod.customer.views import CustomersPage, CustomerGroupsPage
             
         return [[{'label': 'Customers', 'rel': 1, 'priority': 3, 'image': self.res('images/menu-root-customers.png')}],
                 [{'parent': 'Customers', 'label': 'Customers', 'page': CustomersPage, 'image': self.res('images/menu-customers.png')},

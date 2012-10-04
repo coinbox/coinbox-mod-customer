@@ -2,15 +2,12 @@ from PySide import QtCore, QtGui
 
 import cbpos
 
-import cbpos.mod.currency.models.currency as currency
-from cbpos.mod.currency.models.currency import Currency
+import cbpos.mod.currency.controllers as currency
+from cbpos.mod.currency.models import Currency
 
-from cbpos.mod.customer.models.customer import Customer
-from cbpos.mod.customer.models.group import CustomerGroup
-from cbpos.mod.customer.models.contact import CustomerContact
-from cbpos.mod.customer.models.address import CustomerAddress
+from cbpos.mod.customer.models import Customer, CustomerGroup, CustomerContact, CustomerAddress
 
-from cbpos.mod.base.pages import FormPage
+from cbpos.mod.base.views import FormPage
 
 class CustomersPage(FormPage):
     itemClass = Customer
@@ -30,7 +27,7 @@ class CustomersPage(FormPage):
                 ("last_name", "Last Name", QtGui.QLineEdit(), ""),
                 ("discount", "General Discount", discount, 0),
                 ("max_debt", "Maximum Debt", max_debt, 0),
-                ("currency", "Preferred Currency", QtGui.QComboBox(), currency.get_default()),
+                ("currency", "Preferred Currency", QtGui.QComboBox(), currency.default),
                 ("groups", "Groups", groups, []),
                 ("comment", "Comment", QtGui.QTextEdit(), ""),
                 ("contacts", "Contacts", ContactsWidget(), []),

@@ -3,7 +3,7 @@ import cbpos
 import cbpos.database
 import cbpos.mod.base.models.common as common
 
-from cbpos.mod.currency.models import currency
+import cbpos.mod.currency.controllers as currency
 
 from cbpos.mod.currency.models import Currency
 from cbpos.mod.sales.models import TicketLine

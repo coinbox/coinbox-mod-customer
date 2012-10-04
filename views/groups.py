@@ -2,9 +2,9 @@ from PySide import QtGui
 
 import cbpos
 
-from cbpos.mod.customer.models.group import CustomerGroup
+from cbpos.mod.customer.models import CustomerGroup
 
-from cbpos.mod.base.pages import FormPage
+from cbpos.mod.base.views import FormPage
 
 class CustomerGroupsPage(FormPage):
     itemClass = CustomerGroup
