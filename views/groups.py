@@ -2,33 +2,21 @@ from PySide import QtGui
 
 import cbpos
 
+from cbpos.mod.customer.controllers import CustomerGroupsFormController
 from cbpos.mod.customer.models import CustomerGroup
 
 from cbpos.mod.base.views import FormPage
 
 class CustomerGroupsPage(FormPage):
-    itemClass = CustomerGroup
-    def fields(self):
+    controller = CustomerGroupsFormController()
+    
+    def widgets(self):
         menu_restrictions = QtGui.QTreeWidget()
         menu_restrictions.setHeaderHidden(True)
         
-        return [("name", "Name", QtGui.QLineEdit(), ""),
-                ("comment", "Comment", QtGui.QTextEdit(), ""),
-                ]
-    
-    def items(self):
-        session = cbpos.database.session()
-        items = session.query(CustomerGroup.display, CustomerGroup).all()
-        return items
-    
-    def canDeleteItem(self, item):
-        return True
-    
-    def canEditItem(self, item):
-        return True
-    
-    def canAddItem(self):
-        return True
+        return (("name", QtGui.QLineEdit()),
+                ("comment", QtGui.QTextEdit()),
+                )
     
     def getDataFromControl(self, field):
         if field in ('name', 'comment'):
@@ -38,6 +26,3 @@ class CustomerGroupsPage(FormPage):
     def setDataOnControl(self, field, data):
         if field in ('name', 'comment'):
             self.f[field].setText(data)
-    
-    def getDataFromItem(self, field, item):
-        return getattr(item, field)

@@ -2,7 +2,7 @@ from PySide import QtCore, QtGui
 
 import cbpos
 
-import cbpos.mod.currency.controllers as currency
+from cbpos.mod.customer.controllers import CustomersFormController
 from cbpos.mod.currency.models import Currency
 
 from cbpos.mod.customer.models import Customer, CustomerGroup, CustomerContact, CustomerAddress
@@ -10,8 +10,9 @@ from cbpos.mod.customer.models import Customer, CustomerGroup, CustomerContact, 
 from cbpos.mod.base.views import FormPage
 
 class CustomersPage(FormPage):
-    itemClass = Customer
-    def fields(self):
+    controller = CustomersFormController()
+    
+    def widgets(self):
         discount = QtGui.QDoubleSpinBox()
         discount.setRange(0, 100)
         
@@ -21,32 +22,18 @@ class CustomersPage(FormPage):
         groups = QtGui.QTreeWidget()
         groups.setHeaderHidden(True)
         
-        return [("name", "Name", QtGui.QLineEdit(), ""),
-                ("code", "Code", QtGui.QLineEdit(), ""),
-                ("first_name", "First Name", QtGui.QLineEdit(), ""),
-                ("last_name", "Last Name", QtGui.QLineEdit(), ""),
-                ("discount", "General Discount", discount, 0),
-                ("max_debt", "Maximum Debt", max_debt, 0),
-                ("currency", "Preferred Currency", QtGui.QComboBox(), currency.default),
-                ("groups", "Groups", groups, []),
-                ("comment", "Comment", QtGui.QTextEdit(), ""),
-                ("contacts", "Contacts", ContactsWidget(), []),
-                ("addresses", "Addresses", AddressesWidget(), [])
-                ]
-    
-    def items(self):
-        session = cbpos.database.session()
-        items = session.query(Customer.display, Customer).all()
-        return items
-    
-    def canDeleteItem(self, item):
-        return True
-    
-    def canEditItem(self, item):
-        return True
-    
-    def canAddItem(self):
-        return True
+        return (("name", QtGui.QLineEdit()),
+                ("code", QtGui.QLineEdit()),
+                ("first_name", QtGui.QLineEdit()),
+                ("last_name", QtGui.QLineEdit()),
+                ("discount", discount),
+                ("max_debt", max_debt),
+                ("currency", QtGui.QComboBox()),
+                ("groups", groups),
+                ("comment", QtGui.QTextEdit()),
+                ("contacts", ContactsWidget()),
+                ("addresses", AddressesWidget())
+                )
     
     def getDataFromControl(self, field):
         if field in ('name', 'code', 'first_name', 'last_name'):
@@ -126,9 +113,6 @@ class CustomersPage(FormPage):
             self.f[field].setContacts(data)
         elif field == 'addresses':
             self.f[field].setAddresses(data)
-    
-    def getDataFromItem(self, field, item):
-        return getattr(item, field)
 
 class ContactsWidget(QtGui.QWidget):
     
@@ -164,36 +148,42 @@ class ContactsWidget(QtGui.QWidget):
         nameCb.setCurrentIndex(self.nameList.index(tmp.name))
         valueTxt.setText(tmp.value)
         
-        tmp.layout = QtGui.QHBoxLayout()
-        tmp.layout.addWidget(nameCb)
-        tmp.layout.addWidget(valueTxt)
-        tmp.layout.addWidget(removeBtn)
-        self.rows.addLayout(tmp.layout)
+        layout = QtGui.QHBoxLayout()
+        layout.addWidget(nameCb)
+        layout.addWidget(valueTxt)
+        layout.addWidget(removeBtn)
+        
+        tmp.widget = QtGui.QWidget()
+        tmp.widget.setLayout(layout)
+        
+        self.rows.addWidget(tmp.widget)
     
     def onAddButton(self):
         self.addRow(None)
     
     def onRemoveButton(self, tmp):
         tmp.removed = True
-        self.rows.removeItem(tmp.layout)
+        self.rows.removeWidget(tmp.widget)
     
     def setContacts(self, contacts):
         for tmp in self.__tmp:
-            self.rows.removeItem(tmp.layout)
+            self.rows.removeWidget(tmp.widget)
         self.__tmp = []
-        [self.addRow(c) for c in contacts]
+        for c in contacts:
+            self.addRow(c)
     
     def contacts(self):
         for tmp in self.__tmp:
-            tmp.name = tmp.layout.itemAt(0).widget().currentText()
-            tmp.value = tmp.layout.itemAt(1).widget().text()
+            layout = tmp.widget.layout()
+            tmp.name = layout.itemAt(0).widget().currentText()
+            tmp.value = layout.itemAt(1).widget().text()
         return [tmp for tmp in self.__tmp if not tmp.removed]
 
 class TempContact(object):
     name = 'email'
     value = ''
     contact = None
-    layout = None
+    widget = None
     removed = False
     def __init__(self, contact=None):
         self.contact = contact
