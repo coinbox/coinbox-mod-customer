@@ -8,8 +8,8 @@ class CustomerGroupsFormController(FormController):
     cls = CustomerGroup
     
     def fields(self):
-        return {"name": (cbpos.tr.auth._("Name"), ""),
-                "comment": (cbpos.tr.auth._("Comment"), ""),
+        return {"name": (cbpos.tr.customer._("Name"), ""),
+                "comment": (cbpos.tr.customer._("Comment"), ""),
                 }
     
     def items(self):
@@ -35,17 +35,17 @@ class CustomersFormController(FormController):
     def fields(self):
         import cbpos.mod.currency.controllers as currency
         
-        return {"name": (cbpos.tr.auth._("Name"), ""),
-                "code": (cbpos.tr.auth._("Code"), ""),
-                "first_name": (cbpos.tr.auth._("First Name"), ""),
-                "last_name": (cbpos.tr.auth._("Last Name"), ""),
-                "discount": (cbpos.tr.auth._("Discount"), 0),
-                "max_debt": (cbpos.tr.auth._("Maximum Debt"), 0),
-                "currency": (cbpos.tr.auth._("Preferred Currency"), currency.default),
-                "groups": (cbpos.tr.auth._("Groups"), []),
-                "comment": (cbpos.tr.auth._("Comment"), ""),
-                "contacts": (cbpos.tr.auth._("Contacts"), []),
-                "addresses": (cbpos.tr.auth._("Addresses"), []),
+        return {"name": (cbpos.tr.customer._("Name"), ""),
+                "code": (cbpos.tr.customer._("Code"), ""),
+                "first_name": (cbpos.tr.customer._("First Name"), ""),
+                "last_name": (cbpos.tr.customer._("Last Name"), ""),
+                "discount": (cbpos.tr.customer._("Discount"), 0),
+                "max_debt": (cbpos.tr.customer._("Maximum Debt"), 0),
+                "currency": (cbpos.tr.customer._("Preferred Currency"), currency.default),
+                "groups": (cbpos.tr.customer._("Groups"), []),
+                "comment": (cbpos.tr.customer._("Comment"), ""),
+                "contacts": (cbpos.tr.customer._("Contacts"), []),
+                "addresses": (cbpos.tr.customer._("Addresses"), []),
                 }
     
     def items(self):
