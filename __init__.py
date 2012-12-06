@@ -42,6 +42,6 @@ class ModuleLoader(BaseModuleLoader):
     def menu(self):
         from cbpos.mod.customer.views import CustomersPage, CustomerGroupsPage
             
-        return [[{'label': 'Customers', 'rel': 1, 'priority': 3, 'image': self.res('images/menu-root-customers.png')}],
-                [{'parent': 'Customers', 'label': 'Customers', 'page': CustomersPage, 'image': self.res('images/menu-customers.png')},
-                 {'parent': 'Customers', 'label': 'Groups', 'page': CustomerGroupsPage, 'image': self.res('images/menu-groups.png')}]]
+        return [[{'label': 'Customers', 'rel': 1, 'priority': 3, 'image': cbpos.res.customer('images/menu-root-customers.png')}],
+                [{'parent': 'Customers', 'label': 'Customers', 'page': CustomersPage, 'image': cbpos.res.customer('images/menu-customers.png')},
+                 {'parent': 'Customers', 'label': 'Groups', 'page': CustomerGroupsPage, 'image': cbpos.res.customer('images/menu-groups.png')}]]
