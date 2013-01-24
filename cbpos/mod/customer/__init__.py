@@ -40,8 +40,24 @@ class ModuleLoader(BaseModuleLoader):
         session.commit()
 
     def menu(self):
+        from cbpos.interface import MenuRoot, MenuItem
         from cbpos.mod.customer.views import CustomersPage, CustomerGroupsPage
-            
-        return [[{'label': 'Customers', 'rel': 1, 'priority': 3, 'image': cbpos.res.customer('images/menu-root-customers.png')}],
-                [{'parent': 'Customers', 'label': 'Customers', 'page': CustomersPage, 'image': cbpos.res.customer('images/menu-customers.png')},
-                 {'parent': 'Customers', 'label': 'Groups', 'page': CustomerGroupsPage, 'image': cbpos.res.customer('images/menu-groups.png')}]]
+        
+        return [[MenuRoot('customers',
+                          label=cbpos.tr.customer._('Customers'),
+                          icon=cbpos.res.customer('images/menu-root-customers.png'),
+                          rel=1,
+                          priority=3
+                          )],
+                [MenuItem('customers', parent='customers',
+                          label=cbpos.tr.customer._('Customers'),
+                          icon=cbpos.res.customer('images/menu-customers.png'),
+                          page=CustomersPage
+                          ),
+                 MenuItem('customer-groups', parent='customers',
+                          label=cbpos.tr.customer._('Groups'),
+                          icon=cbpos.res.customer('images/menu-groups.png'),
+                          page=CustomerGroupsPage
+                          )
+                 ]
+                ]
