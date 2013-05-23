@@ -20,12 +20,12 @@ class ModuleLoader(BaseModuleLoader):
         cg3 = CustomerGroup(name='Offices', comment='Customers who buy products for their offices and/or companies.')
         
         from cbpos.mod.currency.models import Currency
-        LL = session.query(Currency).filter_by(id=1).one()
+        LBP = session.query(Currency).filter_by(id="LBP").one()
         
         c1 = Customer(name='Abou El Jouj', code=None, first_name='Jad', last_name='Kik',
-                      max_debt=200000, currency=LL, comment='This guy talks too much.', discount=0.5, groups=[cg1, cg2])
+                      max_debt=200000, currency=LBP, comment='This guy talks too much.', discount=0.5, groups=[cg1, cg2])
         c2 = Customer(name='Abou El Imm', code='123', first_name='Imad', last_name='Ferneine',
-                      max_debt=None, currency=LL, comment='He is egyptian!', discount=0, groups=[cg3])
+                      max_debt=None, currency=LBP, comment='He is egyptian!', discount=0, groups=[cg3])
     
         cc1 = CustomerContact(name='email', value='jadkik94@gmail.com', customer=c1)
         cc2 = CustomerContact(name='mobile', value='70695924', customer=c1)

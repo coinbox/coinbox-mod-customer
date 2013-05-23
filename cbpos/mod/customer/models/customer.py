@@ -28,7 +28,7 @@ class Customer(cbpos.database.Base, common.Item):
     last_name = Column(String(255), nullable=True)
     discount = Column(Float, nullable=False, default=0)
     max_debt = Column(Float, nullable=True)
-    currency_id = Column(Integer, ForeignKey('currencies.id'))
+    currency_id = Column(String(3), ForeignKey('currencies.id'))
     comment = Column(String(255), nullable=True)
 
     groups = relationship("CustomerGroup", secondary=customer_group_link, backref="customers")
