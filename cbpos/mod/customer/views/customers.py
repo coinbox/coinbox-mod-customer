@@ -92,20 +92,18 @@ class CustomersPage(FormPage):
             self.f[field].setValue(data if data is not None else 0)
         elif field == 'currency':
             session = cbpos.database.session()
-            items = session.query(Currency.display, Currency).all()
             self.f[field].clear()
-            for i, item in enumerate(items):
-                self.f[field].addItem(*item)
-                if item[1] == data:
+            for i, item in enumerate(session.query(Currency)):
+                self.f[field].addItem(item.display, item)
+                if item == data:
                     self.f[field].setCurrentIndex(i+1)
         elif field == 'groups':
             session = cbpos.database.session()
-            items = session.query(CustomerGroup.display, CustomerGroup).all()
             self.f[field].clear()
-            for item in items:
-                root = QtGui.QTreeWidgetItem(self.f[field], [item[0]])
-                root.setData(0, QtCore.Qt.UserRole+1, item[1])
-                if item[1] in data:
+            for item in session.query(CustomerGroup):
+                root = QtGui.QTreeWidgetItem(self.f[field], [item.display])
+                root.setData(0, QtCore.Qt.UserRole+1, item)
+                if item in data:
                     root.setCheckState(0, QtCore.Qt.Checked)
                 else:
                     root.setCheckState(0, QtCore.Qt.Unchecked)

@@ -5,7 +5,7 @@ import cbpos.mod.base.models.common as common
 
 import cbpos.mod.currency.controllers as currency
 
-from cbpos.mod.currency.models import Currency
+from cbpos.mod.currency.models import Currency, CurrencyValue
 from cbpos.mod.sales.models import TicketLine
 from cbpos.mod.sales.models import Ticket
 
@@ -26,8 +26,8 @@ class Customer(cbpos.database.Base, common.Item):
     code = Column(String(255), nullable=True, unique=True)
     first_name = Column(String(255), nullable=True)
     last_name = Column(String(255), nullable=True)
-    discount = Column(Float, nullable=False, default=0)
-    max_debt = Column(Float, nullable=True)
+    discount = Column(Integer, nullable=False, default=0)
+    max_debt = Column(CurrencyValue(), nullable=True)
     currency_id = Column(String(3), ForeignKey('currencies.id'))
     comment = Column(String(255), nullable=True)
 

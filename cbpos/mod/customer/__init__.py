@@ -23,7 +23,7 @@ class ModuleLoader(BaseModuleLoader):
         LBP = session.query(Currency).filter_by(id="LBP").one()
         
         c1 = Customer(name='Abou El Jouj', code=None, first_name='Jad', last_name='Kik',
-                      max_debt=200000, currency=LBP, comment='This guy talks too much.', discount=0.5, groups=[cg1, cg2])
+                      max_debt=200000, currency=LBP, comment='This guy talks too much.', discount=50, groups=[cg1, cg2])
         c2 = Customer(name='Abou El Imm', code='123', first_name='Imad', last_name='Ferneine',
                       max_debt=None, currency=LBP, comment='He is egyptian!', discount=0, groups=[cg3])
     
