@@ -37,14 +37,14 @@ class Customer(cbpos.database.Base, common.Item):
     @hybrid_property
     def debt(self):
         session = cbpos.database.session()
-        qry = session.query(func.sum(TicketLine.total), Currency) \
+        query = session.query(func.sum(TicketLine.total), Currency) \
                              .filter((TicketLine.ticket_id == Ticket.id) & \
                                      (Ticket.customer == self) & \
                                      (Ticket.currency_id == Currency.id) & \
                                      (Ticket.payment_method == 'debt') & \
                                      ~Ticket.paid) \
                             .group_by(Ticket.currency_id)
-        total = sum(currency.convert(c_total, c, self.currency) for c_total, c in qry.all())
+        total = sum(currency.convert(c_total, c, self.currency) for (c_total, c) in query)
         return total
 
     @hybrid_property
