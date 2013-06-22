@@ -3,7 +3,6 @@ from cbpos.modules import BaseModuleLoader
 
 class ModuleLoader(BaseModuleLoader):
     dependencies = ('base', 'currency')
-    config = []
     name = 'Customer and Customer Groups Support'
 
     def load(self):
