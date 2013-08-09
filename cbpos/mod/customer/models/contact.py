@@ -10,7 +10,7 @@ class CustomerContact(cbpos.database.Base, common.Item):
     __tablename__ = 'customercontacts'
 
     id = Column(Integer, primary_key=True)
-    name = Column(Enum('email', 'phone', 'mobile', 'fax'), nullable=False)
+    name = Column(Enum('email', 'phone', 'mobile', 'fax', name="contact_name_enum"), nullable=False)
     value = Column(String(255), nullable=False)
     customer_id = Column(Integer, ForeignKey('customers.id'), nullable=False)
 
