@@ -6,8 +6,6 @@ import cbpos.mod.base.models.common as common
 import cbpos.mod.currency.controllers as currency
 
 from cbpos.mod.currency.models import Currency, CurrencyValue
-from cbpos.mod.sales.models import TicketLine
-from cbpos.mod.sales.models import Ticket
 
 from sqlalchemy import func, Table, Column, Integer, String, Float, Boolean, MetaData, ForeignKey
 from sqlalchemy.orm import relationship, backref
@@ -36,6 +34,13 @@ class Customer(cbpos.database.Base, common.Item):
 
     @hybrid_property
     def debt(self):
+        
+        try:
+            from cbpos.mod.sales.models import TicketLine
+            from cbpos.mod.sales.models import Ticket
+        except ImportError as e:
+            return 0
+        
         session = cbpos.database.session()
         query = session.query(func.sum(TicketLine.total), Currency) \
                              .filter((TicketLine.ticket_id == Ticket.id) & \
@@ -46,6 +51,10 @@ class Customer(cbpos.database.Base, common.Item):
                             .group_by(Ticket.currency_id)
         total = sum(currency.convert(c_total, c, self.currency) for (c_total, c) in query)
         return total
+    
+    @debt.setter
+    def debt(self, value):
+        raise ValueError("Cannot set debt value for customers")
 
     @hybrid_property
     def display(self):
