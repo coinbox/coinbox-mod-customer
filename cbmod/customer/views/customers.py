@@ -2,12 +2,12 @@ from PySide import QtCore, QtGui
 
 import cbpos
 
-from cbpos.mod.customer.controllers import CustomersFormController
-from cbpos.mod.currency.models import Currency
+from cbmod.customer.controllers import CustomersFormController
+from cbmod.currency.models import Currency
 
-from cbpos.mod.customer.models import Customer, CustomerGroup, CustomerContact, CustomerAddress
+from cbmod.customer.models import Customer, CustomerGroup, CustomerContact, CustomerAddress
 
-from cbpos.mod.base.views import FormPage
+from cbmod.base.views import FormPage
 
 class CustomersPage(FormPage):
     controller = CustomersFormController()

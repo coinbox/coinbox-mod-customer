@@ -2,7 +2,7 @@ from PySide import QtGui, QtCore
 
 import cbpos
 
-from cbpos.mod.customer.views.widgets import CustomerCatalog
+from cbmod.customer.views.widgets import CustomerCatalog
 
 class CustomerChooserDialog(QtGui.QDialog):
     

@@ -1,11 +1,11 @@
 import cbpos
 
 import cbpos.database
-import cbpos.mod.base.models.common as common
+import cbmod.base.models.common as common
 
-import cbpos.mod.currency.controllers as currency
+import cbmod.currency.controllers as currency
 
-from cbpos.mod.currency.models import Currency, CurrencyValue
+from cbmod.currency.models import Currency, CurrencyValue
 
 from sqlalchemy import func, Table, Column, Integer, String, Float, Boolean, MetaData, ForeignKey
 from sqlalchemy.orm import relationship, backref
@@ -36,8 +36,8 @@ class Customer(cbpos.database.Base, common.Item):
     def debt(self):
         
         try:
-            from cbpos.mod.sales.models import TicketLine
-            from cbpos.mod.sales.models import Ticket
+            from cbmod.sales.models import TicketLine
+            from cbmod.sales.models import Ticket
         except ImportError as e:
             return 0
         

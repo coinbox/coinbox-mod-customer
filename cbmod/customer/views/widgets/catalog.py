@@ -1,8 +1,8 @@
 import cbpos
 
-from cbpos.mod.base.views.widgets import Catalog
+from cbmod.base.views.widgets import Catalog
 
-from cbpos.mod.customer.models import Customer, CustomerGroup
+from cbmod.customer.models import Customer, CustomerGroup
 
 class CustomerCatalog(Catalog):
     

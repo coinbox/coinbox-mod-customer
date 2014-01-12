@@ -1,8 +1,8 @@
 import cbpos
 
-from cbpos.mod.customer.models import Customer, CustomerGroup
+from cbmod.customer.models import Customer, CustomerGroup
 
-from cbpos.mod.base.controllers import FormController
+from cbmod.base.controllers import FormController
 
 class CustomerGroupsFormController(FormController):
     cls = CustomerGroup
@@ -32,7 +32,7 @@ class CustomersFormController(FormController):
     cls = Customer
     
     def fields(self):
-        import cbpos.mod.currency.controllers as currency
+        import cbmod.currency.controllers as currency
         
         return {"name": (cbpos.tr.customer._("Name"), ""),
                 "code": (cbpos.tr.customer._("Code"), ""),

@@ -2,10 +2,10 @@ from PySide import QtGui
 
 import cbpos
 
-from cbpos.mod.customer.controllers import CustomerGroupsFormController
-from cbpos.mod.customer.models import CustomerGroup
+from cbmod.customer.controllers import CustomerGroupsFormController
+from cbmod.customer.models import CustomerGroup
 
-from cbpos.mod.base.views import FormPage
+from cbmod.base.views import FormPage
 
 class CustomerGroupsPage(FormPage):
     controller = CustomerGroupsFormController()

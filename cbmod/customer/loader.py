@@ -3,11 +3,11 @@ from cbpos.modules import BaseModuleLoader
 
 class ModuleLoader(BaseModuleLoader):
     def load_models(self):
-        from cbpos.mod.customer.models import Customer, CustomerGroup, CustomerContact, CustomerAddress
+        from cbmod.customer.models import Customer, CustomerGroup, CustomerContact, CustomerAddress
         return [Customer, CustomerGroup, CustomerContact, CustomerAddress]
 
     def test_models(self):
-        from cbpos.mod.customer.models import Customer, CustomerGroup, CustomerContact, CustomerAddress
+        from cbmod.customer.models import Customer, CustomerGroup, CustomerContact, CustomerAddress
     
         session = cbpos.database.session()
     
@@ -15,7 +15,7 @@ class ModuleLoader(BaseModuleLoader):
         cg2 = CustomerGroup(name='Library', comment='Customers who have an account at the library.')
         cg3 = CustomerGroup(name='Offices', comment='Customers who buy products for their offices and/or companies.')
         
-        from cbpos.mod.currency.models import Currency
+        from cbmod.currency.models import Currency
         LBP = session.query(Currency).filter_by(id="LBP").one()
         
         c1 = Customer(name='Abou El Jouj', code=None, first_name='Jad', last_name='Kik',
@@ -37,7 +37,7 @@ class ModuleLoader(BaseModuleLoader):
 
     def menu(self):
         from cbpos.interface import MenuRoot, MenuItem
-        from cbpos.mod.customer.views import CustomersPage, CustomerGroupsPage
+        from cbmod.customer.views import CustomersPage, CustomerGroupsPage
         
         return [[MenuRoot('customers',
                           label=cbpos.tr.customer._('Customers'),
