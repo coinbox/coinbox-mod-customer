@@ -40,18 +40,18 @@ class ModuleLoader(BaseModuleLoader):
         from cbmod.customer.views import CustomersPage, CustomerGroupsPage
         
         return [[MenuRoot('customers',
-                          label=cbpos.tr.customer._('Customers'),
+                          label=cbpos.tr.customer_('Customers'),
                           icon=cbpos.res.customer('images/menu-root-customers.png'),
                           rel=1,
                           priority=3
                           )],
                 [MenuItem('customers', parent='customers',
-                          label=cbpos.tr.customer._('Customers'),
+                          label=cbpos.tr.customer_('Customers'),
                           icon=cbpos.res.customer('images/menu-customers.png'),
                           page=CustomersPage
                           ),
                  MenuItem('customer-groups', parent='customers',
-                          label=cbpos.tr.customer._('Groups'),
+                          label=cbpos.tr.customer_('Groups'),
                           icon=cbpos.res.customer('images/menu-groups.png'),
                           page=CustomerGroupsPage
                           )

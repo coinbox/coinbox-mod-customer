@@ -17,10 +17,10 @@ class CustomerChooserDialog(QtGui.QDialog):
         
         self.catalog = CustomerCatalog()
         
-        self.selectedLbl = QtGui.QLabel(cbpos.tr.customer._("Selected"))
+        self.selectedLbl = QtGui.QLabel(cbpos.tr.customer_("Selected"))
         self.selected = QtGui.QLineEdit()
         self.selected.setReadOnly(True)
-        self.selected.setPlaceholderText(cbpos.tr.customer._("No customer selected"))
+        self.selected.setPlaceholderText(cbpos.tr.customer_("No customer selected"))
         
         selected = QtGui.QHBoxLayout()
         selected.addWidget(self.selectedLbl)

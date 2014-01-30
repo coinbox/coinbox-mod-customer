@@ -8,8 +8,8 @@ class CustomerGroupsFormController(FormController):
     cls = CustomerGroup
     
     def fields(self):
-        return {"name": (cbpos.tr.customer._("Name"), ""),
-                "comment": (cbpos.tr.customer._("Comment"), ""),
+        return {"name": (cbpos.tr.customer_("Name"), ""),
+                "comment": (cbpos.tr.customer_("Comment"), ""),
                 }
     
     def items(self):
@@ -34,17 +34,17 @@ class CustomersFormController(FormController):
     def fields(self):
         import cbmod.currency.controllers as currency
         
-        return {"name": (cbpos.tr.customer._("Name"), ""),
-                "code": (cbpos.tr.customer._("Code"), ""),
-                "first_name": (cbpos.tr.customer._("First Name"), ""),
-                "last_name": (cbpos.tr.customer._("Last Name"), ""),
-                "discount": (cbpos.tr.customer._("Discount"), 0),
-                "max_debt": (cbpos.tr.customer._("Maximum Debt"), 0),
-                "currency": (cbpos.tr.customer._("Preferred Currency"), currency.default),
-                "groups": (cbpos.tr.customer._("Groups"), []),
-                "comment": (cbpos.tr.customer._("Comment"), ""),
-                "contacts": (cbpos.tr.customer._("Contacts"), []),
-                "addresses": (cbpos.tr.customer._("Addresses"), []),
+        return {"name": (cbpos.tr.customer_("Name"), ""),
+                "code": (cbpos.tr.customer_("Code"), ""),
+                "first_name": (cbpos.tr.customer_("First Name"), ""),
+                "last_name": (cbpos.tr.customer_("Last Name"), ""),
+                "discount": (cbpos.tr.customer_("Discount"), 0),
+                "max_debt": (cbpos.tr.customer_("Maximum Debt"), 0),
+                "currency": (cbpos.tr.customer_("Preferred Currency"), currency.default),
+                "groups": (cbpos.tr.customer_("Groups"), []),
+                "comment": (cbpos.tr.customer_("Comment"), ""),
+                "contacts": (cbpos.tr.customer_("Contacts"), []),
+                "addresses": (cbpos.tr.customer_("Addresses"), []),
                 }
     
     def items(self):
